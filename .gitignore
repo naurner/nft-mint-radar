@@ -1,0 +1,17 @@
+# Секреты и личные настройки
+.env
+config/.env
+config/config.yaml
+
+# База найденного
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+.venv/
+venv/

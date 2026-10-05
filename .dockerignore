@@ -1,0 +1,18 @@
+# Секреты и личные данные в образ не попадают: они приезжают томом.
+.env
+config/.env
+config/config.yaml
+data/
+
+.git/
+.gitignore
+tests/
+docs/
+*.bat
+*.command
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/

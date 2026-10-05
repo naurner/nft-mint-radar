@@ -1,0 +1,37 @@
+services:
+  bot:
+    build:
+      context: .
+      args:
+        # Печатается в /menu → Статус — самый простой способ убедиться,
+        # что контейнер реально пересобрался с нужным коммитом, не заходя
+        # по SSH. mac-autopull.sh передаёт реальный короткий хэш; без него
+        # (сборка вручную) — просто "unknown".
+        GIT_COMMIT: ${GIT_COMMIT:-unknown}
+    image: wlparser:latest
+    # Имя контейнера намеренно не задаётся. С фиксированным именем остаток
+    # от прошлого запуска блокирует новый: "container name is already in use".
+    # Compose сам назовёт контейнер и сам пересоздаст его при обновлении.
+    #
+    # Переживает перезагрузку ноутбука и падение процесса.
+    restart: unless-stopped
+    environment:
+      # Часовой пояс влияет на время в логах и на расписание постинга.
+      # Поменять под себя: TZ=Asia/Almaty ./mac-start.command
+      TZ: ${TZ:-Europe/Moscow}
+    # Ollama стоит на самом Маке, не в Docker (контейнеры не видят GPU) —
+    # так контейнер достаёт её по имени host.docker.internal:11434. Тот же
+    # приём, что в соседнем проекте Lalascaner.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Настройки и секреты — на хосте, чтобы не терялись при пересборке.
+      - ./config:/app/config
+      # База найденного и аккаунты twscrape.
+      - ./data:/app/data
+    # Логи не должны съесть диск за месяц работы.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
