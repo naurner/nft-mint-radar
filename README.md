@@ -7,7 +7,7 @@
 ![Tests](https://img.shields.io/badge/tests-686%20passing-success)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
 
-> Built for a Web3 trader who wanted to catch whitelist (WL) and public mints on Robinhood Chain early, without watching block explorers and Twitter all day.
+> My own tool: I wanted to catch whitelist (WL) and public mints on Robinhood Chain early, without watching block explorers and Twitter all day.
 
 ---
 
